@@ -39,6 +39,10 @@ public class OwlBird2 : Bird
                 }
             }
         }
+
+
+        var exp = GetComponent<ParticleSystem>();
+        exp.Play();
     }
 
     private void OnDrawGizmos()
