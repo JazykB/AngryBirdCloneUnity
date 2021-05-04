@@ -28,6 +28,7 @@ public class Enemy : MonoBehaviour
             _isHit = true;
             Destroy(gameObject);
         }
+
         else if (col.gameObject.tag == "Obstacle")
         {
             //Hitung damage yang diperoleh
@@ -40,17 +41,5 @@ public class Enemy : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

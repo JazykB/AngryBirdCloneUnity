@@ -1,27 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Destroyer : MonoBehaviour
 {
+    public UnityAction<GameObject> OnEnemyDestroyed = delegate { };
+
     void OnTriggerEnter2D(Collider2D col)
     {
         string tag = col.gameObject.tag;
-        if (tag == "Bird" || tag == "Enemy" || tag == "Obstacle")
+        if (tag == "Bird" || tag == "Obstacle")
         {
             Destroy(col.gameObject);
         }
-    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (tag == "Enemy")
+        {
+            OnEnemyDestroyed(col.gameObject);
+            Destroy(col.gameObject);
+        }
     }
 }

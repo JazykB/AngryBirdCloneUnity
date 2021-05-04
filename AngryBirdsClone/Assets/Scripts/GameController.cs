@@ -8,8 +8,11 @@ public class GameController : MonoBehaviour
     public TrailController TrailController;
     public List<Bird> Birds;
     public List<Enemy> Enemies;
+    public Destroyer Destroyer;
     private Bird _shotBird;
     public BoxCollider2D TapCollider;
+    public GameObject gameOverScreen;
+    public GameObject congratulationScreen;
 
     private bool _isGameEnded = false;
 
@@ -24,6 +27,7 @@ public class GameController : MonoBehaviour
 
         for (int i = 0; i < Enemies.Count; i++)
         {
+            Destroyer.OnEnemyDestroyed = CheckGameEnd;
             Enemies[i].OnEnemyDestroyed += CheckGameEnd;
         }
 
@@ -38,6 +42,9 @@ public class GameController : MonoBehaviour
 
         if (_isGameEnded)
         {
+            Debug.Log("Win");
+            //Congrats! or NEXT STAGE
+            congratulationScreen.SetActive(true);
             return;
         }
 
@@ -45,8 +52,17 @@ public class GameController : MonoBehaviour
 
         if (Birds.Count > 0)
         {
-            SlingShooter.InitiateBird(Birds[0]);
-            _shotBird = Birds[0];
+                SlingShooter.InitiateBird(Birds[0]);
+                _shotBird = Birds[0];
+        }
+
+        // if (Birds.Count == 0) 
+        // YOU LOSE, TRY AGAIN, PRESS T
+        if (Birds.Count == 0)
+        {
+            Debug.Log("Try Again");
+
+            gameOverScreen.SetActive(true);
         }
     }
 
@@ -65,6 +81,8 @@ public class GameController : MonoBehaviour
         {
             _isGameEnded = true;
         }
+
+
     }
 
     public void AssignTrail(Bird bird)
@@ -80,11 +98,5 @@ public class GameController : MonoBehaviour
         {
             _shotBird.OnTap();
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
