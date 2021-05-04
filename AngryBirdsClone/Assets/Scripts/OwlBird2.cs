@@ -12,9 +12,8 @@ public class OwlBird2 : Bird
 
     private void OnCollisionEnter2D(Collision2D col)
     {
-        Debug.Log("Bomb");
         string tag = col.gameObject.tag;
-        if (tag == "Enemy" || tag == "Obstacle" && !_hasExploded)
+        if (tag == "Obstacle" && !_hasExploded)
         {
             Debug.Log("Bomb tagged");
             Explode();
@@ -39,7 +38,6 @@ public class OwlBird2 : Bird
                 }
             }
         }
-
 
         var exp = GetComponent<ParticleSystem>();
         exp.Play();
